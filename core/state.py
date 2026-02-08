@@ -1,21 +1,20 @@
-import time
+class Player:
+    def __init__(self, user):
+        self.id = user.id
+        self.name = user.full_name
+        self.role = None
+        self.team = None
+        self.alive = True
+        self.vote = None
+
 
 class GameState:
     def __init__(self):
-        self.reset()
+        self.players = {}
+        self.phase = "lobby"   # lobby, night, day, voting
+        self.day = 0
+        self.votes = {}
+        self.night_actions = {}
 
-    def reset(self):
-        self.chat_id = None
-
-        self.players = {}  # user_id: name
-
-        self.join_open = False
-        self.join_duration = 30
-        self.extend_duration = 15
-        self.join_end_time = None
-        self.extended = False
-
-        self.phase = "idle"
-        self.round = 0
-
-game = GameState()
+    def alive_players(self):
+        return [p for p in self.players.values() if p.alive]
